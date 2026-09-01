@@ -276,6 +276,19 @@
             font-style: italic;
         }
 
+        .essay-notice {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 10px;
+            padding: 12px 15px;
+            margin-top: 10px;
+            font-size: 0.95em;
+            color: #856404;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         .btn-submit {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -371,11 +384,6 @@
             border-bottom: none;
         }
 
-        .result-item.essay-result {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
         .correct {
             color: #27ae60;
             font-weight: bold;
@@ -386,9 +394,14 @@
             font-weight: bold;
         }
 
-        .partial {
-            color: #f39c12;
-            font-weight: bold;
+        .essay-submitted-notice {
+            background: #d4edda;
+            border: 1px solid #28a745;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            color: #155724;
+            font-size: 1.05em;
         }
 
         .loading {
@@ -577,8 +590,11 @@
         <div class="quiz-section" id="quizSection">
             <div class="section">
                 <div class="section-title">
-                    📝 Bagian A - 10 Soal Pilihan Ganda (70 poin)
+                    📝 Bagian A - 10 Soal Pilihan Ganda (Nilai: 100)
                 </div>
+                <p style="color: #555; margin-bottom: 15px; font-size: 0.95em;">
+                    ℹ️ Setiap soal bernilai <strong>10 poin</strong>. Total nilai PG = <strong>100</strong> jika benar semua.
+                </p>
 
                 <!-- Soal PG 1 -->
                 <div class="question-card">
@@ -807,8 +823,11 @@
 
                 <!-- SOAL ESSAY -->
                 <div class="section-title" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); margin-top: 30px;">
-                    ✍️ Bagian B - 3 Soal Essay (30 poin)
+                    ✍️ Bagian B - 3 Soal Essay (Dinilai oleh Guru)
                 </div>
+                <p style="color: #555; margin-bottom: 15px; font-size: 0.95em;">
+                    ℹ️ Jawaban essay akan dikirim ke guru untuk dinilai secara manual.
+                </p>
 
                 <!-- Essay 1 -->
                 <div class="question-card essay">
@@ -819,6 +838,9 @@
                     <div class="question-arabic">رُكْبَةٌ</div>
                     <textarea class="essay-textarea" id="essay1" placeholder="Tulis jawabanmu di sini..."></textarea>
                     <div class="essay-hint">💡 Petunjuk: Ini adalah bagian tubuh di antara paha dan betis.</div>
+                    <div class="essay-notice">
+                        📌 Jawaban essay ini akan dinilai oleh guru.
+                    </div>
                 </div>
 
                 <!-- Essay 2 -->
@@ -829,6 +851,9 @@
                     </div>
                     <textarea class="essay-textarea" id="essay2" placeholder="Tulis jawabanmu di sini..."></textarea>
                     <div class="essay-hint">💡 Petunjuk: Diawali dengan huruf hamzah (أ) dan berakhiran tanwin dhammah (ٌ).</div>
+                    <div class="essay-notice">
+                        📌 Jawaban essay ini akan dinilai oleh guru.
+                    </div>
                 </div>
 
                 <!-- Essay 3 -->
@@ -839,10 +864,13 @@
                     </div>
                     <textarea class="essay-textarea" id="essay3" placeholder="Tulis jawabanmu di sini... (contoh: 1. ... 2. ... 3. ...)"></textarea>
                     <div class="essay-hint">💡 Petunjuk: Pikirkan anggota badan seperti mata, hidung, telinga, rambut, alis, dll.</div>
+                    <div class="essay-notice">
+                        📌 Jawaban essay ini akan dinilai oleh guru.
+                    </div>
                 </div>
 
                 <button class="btn-submit" onclick="submitQuiz()" id="submitBtn">
-                    ✅ Kirim Jawaban & Lihat Nilai
+                    ✅ Kirim Jawaban & Lihat Nilai PG
                 </button>
             </div>
         </div>
@@ -860,21 +888,23 @@
             
             <div class="score-breakdown">
                 <div class="score-item">
-                    <div class="label">Pilihan Ganda</div>
-                    <div class="value" id="pgScore">0/70</div>
+                    <div class="label">Nilai Pilihan Ganda</div>
+                    <div class="value" id="pgScore">0/100</div>
                 </div>
                 <div class="score-item">
                     <div class="label">Essay</div>
-                    <div class="value" id="essayScore">0/30</div>
-                </div>
-                <div class="score-item">
-                    <div class="label">Total Nilai</div>
-                    <div class="value" id="totalScore">0/100</div>
+                    <div class="value" style="font-size: 1.1em;"> Menunggu Penilaian Guru</div>
                 </div>
             </div>
 
             <div class="result-score" id="resultScore"></div>
             <div class="result-message" id="resultMessage"></div>
+            
+            <div class="essay-submitted-notice">
+                ✅ <strong>Jawaban essay berhasil dikirim!</strong><br>
+                Essay akan dinilai oleh guru. Nilai akhir akan diumumkan kemudian.
+            </div>
+
             <div class="result-detail" id="resultDetail"></div>
             <button class="btn-submit" onclick="location.reload()" style="margin-top: 20px;">
                 🔄 Kerjakan Ulang
@@ -883,7 +913,7 @@
     </div>
 
     <script>
-        // ===== URL GOOGLE APPS SCRIPT (SUDAH DIPERBARUI) =====
+        // ===== URL GOOGLE APPS SCRIPT =====
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyxxI0jeaBQ_Aa5pZ8N7qFDoQBHv1DAlcHaVq61VeBEwoh_x3whmL5B8gaz6l_uQFvk/exec';
 
         // Kunci Jawaban PG
@@ -898,26 +928,6 @@
             8: 'B',  // rijlun
             9: 'B',  // Dada
             10: 'A'  // إِصْبَعٌ
-        };
-
-        // Kunci Jawaban Essay (dengan variasi jawaban yang diterima)
-        const essayAnswers = {
-            1: {
-                keywords: ['lutut'],
-                fullAnswer: 'Lutut',
-                points: 10
-            },
-            2: {
-                keywords: ['أُذُنٌ', 'أذن', 'udzun', "'udzun", 'udzunun', "'udzunun"],
-                fullAnswer: 'أُذُنٌ (\'udzunun)',
-                points: 10
-            },
-            3: {
-                keywords: ['رَأْسٌ', 'رأس', 'عَيْنٌ', 'عين', 'أَنْفٌ', 'أنف', 'فَمٌ', 'فم', 'أُذُنٌ', 'أذن', 'شَعْرٌ', 'شعر', 'حَاجِبٌ', 'حاجب', 'kepala', 'mata', 'hidung', 'mulut', 'telinga', 'rambut', 'alis', 'wajah'],
-                minRequired: 3,
-                fullAnswer: 'Contoh: رَأْسٌ (kepala), عَيْنٌ (mata), أَنْفٌ (hidung)',
-                points: 10
-            }
         };
 
         let studentName = '';
@@ -968,62 +978,13 @@
             document.getElementById(`q${questionNum}${option.toLowerCase()}`).checked = true;
         }
 
-        // Normalisasi teks untuk pencocokan
-        function normalizeText(text) {
-            return text.toLowerCase().trim().replace(/\s+/g, ' ');
-        }
-
-        // Cek jawaban essay
-        function checkEssay(essayNum, userAnswer) {
-            const answer = essayAnswers[essayNum];
-            const normalizedAnswer = normalizeText(userAnswer);
-            
-            if (normalizedAnswer === '') return { score: 0, feedback: 'Tidak ada jawaban' };
-
-            if (essayNum === 3) {
-                // Soal 3: perlu minimal 3 jawaban benar
-                let matchedKeywords = [];
-                answer.keywords.forEach(keyword => {
-                    if (normalizedAnswer.includes(normalizeText(keyword))) {
-                        matchedKeywords.push(keyword);
-                    }
-                });
-                
-                const uniqueMatches = [...new Set(matchedKeywords)];
-                const score = Math.min((uniqueMatches.length / answer.minRequired) * answer.points, answer.points);
-                
-                return {
-                    score: Math.round(score),
-                    feedback: `Kata kunci terdeteksi: ${uniqueMatches.length} dari ${answer.minRequired} yang diperlukan`,
-                    matched: uniqueMatches
-                };
-            } else {
-                // Soal 1 dan 2: cek apakah ada keyword yang cocok
-                let matched = false;
-                let matchedKeyword = '';
-                
-                answer.keywords.forEach(keyword => {
-                    if (normalizedAnswer.includes(normalizeText(keyword))) {
-                        matched = true;
-                        matchedKeyword = keyword;
-                    }
-                });
-                
-                if (matched) {
-                    return { score: answer.points, feedback: 'Jawaban benar!', matched: matchedKeyword };
-                } else {
-                    return { score: 0, feedback: 'Jawaban kurang tepat' };
-                }
-            }
-        }
-
         // Submit Quiz
         function submitQuiz() {
             // Cek semua soal PG sudah dijawab
             for (let i = 1; i <= 10; i++) {
                 if (!answers[i]) {
-                    alert(`⚠️ Soal nomor ${i} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
-                    const questionCard = document.querySelectorAll('.question-card')[i - 1];
+                    alert(`️ Soal nomor ${i} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
+                    const questionCard = document.querySelectorAll('.question-card:not(.essay)')[i - 1];
                     if (questionCard) {
                         questionCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
                         questionCard.style.borderLeft = '5px solid #e74c3c';
@@ -1053,7 +1014,7 @@
                 essayAnswers_submitted[i] = essayValue;
             }
 
-            // Hitung nilai PG
+            // Hitung nilai PG (10 soal × 10 poin = 100)
             let pgCorrect = 0;
             let detailHTML = '<h3 style="margin-bottom: 15px;">📋 Detail Jawaban Pilihan Ganda:</h3>';
             
@@ -1064,42 +1025,12 @@
                 detailHTML += `
                     <div class="result-item">
                         <span>Soal ${i}: Jawabanmu <strong>${answers[i]}</strong> 
-                        ${isCorrect ? '<span class="correct">✓ Benar (7 poin)</span>' : `<span class="wrong">✗ Salah (Kunci: ${correctAnswers[i]})</span>`}</span>
+                        ${isCorrect ? '<span class="correct">✓ Benar (10 poin)</span>' : `<span class="wrong">✗ Salah (Kunci: ${correctAnswers[i]})</span>`}</span>
                     </div>
                 `;
             }
 
-            const pgScore = pgCorrect * 7;
-
-            // Hitung nilai Essay
-            let essayTotalScore = 0;
-            detailHTML += '<h3 style="margin: 20px 0 15px 0;">✍️ Detail Jawaban Essay:</h3>';
-            
-            const essayResults = [];
-            for (let i = 1; i <= 3; i++) {
-                const result = checkEssay(i, essayAnswers_submitted[i]);
-                essayTotalScore += result.score;
-                essayResults.push(result);
-                
-                detailHTML += `
-                    <div class="result-item essay-result">
-                        <div style="width: 100%;">
-                            <strong>Soal ${i + 10}:</strong> Jawabanmu: "${essayAnswers_submitted[i]}"
-                        </div>
-                        <div style="width: 100%; margin-top: 5px;">
-                            ${result.score === essayAnswers[i].points ? 
-                                `<span class="correct">✓ ${result.feedback} (${result.score}/${essayAnswers[i].points} poin)</span>` :
-                                result.score > 0 ?
-                                `<span class="partial">◐ ${result.feedback} (${result.score}/${essayAnswers[i].points} poin)</span>` :
-                                `<span class="wrong">✗ ${result.feedback} (0/${essayAnswers[i].points} poin)</span>`
-                            }
-                            <br><small style="color: #7f8c8d;">Jawaban yang diharapkan: ${essayAnswers[i].fullAnswer}</small>
-                        </div>
-                    </div>
-                `;
-            }
-
-            const totalScore = pgScore + essayTotalScore;
+            const pgScore = pgCorrect * 10; // 10 soal × 10 poin = maksimal 100
 
             // Tampilkan loading
             document.getElementById('quizSection').style.display = 'none';
@@ -1111,8 +1042,8 @@
                 jawabanPG: Object.values(answers),
                 jawabanEssay: Object.values(essayAnswers_submitted),
                 nilaiPG: pgScore,
-                nilaiEssay: essayTotalScore,
-                nilaiTotal: totalScore
+                jumlahBenar: pgCorrect,
+                jumlahSalah: 10 - pgCorrect
             };
 
             fetch(GOOGLE_SCRIPT_URL, {
@@ -1123,38 +1054,39 @@
                 },
                 body: JSON.stringify(data)
             }).then(() => {
-                showResult(pgCorrect, pgScore, essayTotalScore, totalScore, detailHTML);
+                showResult(pgCorrect, pgScore, detailHTML);
             }).catch(error => {
                 console.error('Error sending data:', error);
-                showResult(pgCorrect, pgScore, essayTotalScore, totalScore, detailHTML);
+                showResult(pgCorrect, pgScore, detailHTML);
             });
 
             setTimeout(() => {
                 if (document.getElementById('loadingSection').classList.contains('active')) {
-                    showResult(pgCorrect, pgScore, essayTotalScore, totalScore, detailHTML);
+                    showResult(pgCorrect, pgScore, detailHTML);
                 }
             }, 3000);
         }
 
         // Tampilkan Hasil
-        function showResult(pgCorrect, pgScore, essayScore, totalScore, detailHTML) {
+        function showResult(pgCorrect, pgScore, detailHTML) {
             document.getElementById('loadingSection').classList.remove('active');
             document.getElementById('resultSection').classList.add('active');
             
             document.getElementById('resultName').textContent = `Nama: ${studentName}`;
-            document.getElementById('pgScore').textContent = `${pgScore}/70`;
-            document.getElementById('essayScore').textContent = `${essayScore}/30`;
-            document.getElementById('totalScore').textContent = `${totalScore}/100`;
+            document.getElementById('pgScore').textContent = `${pgScore}/100`;
             
             const scoreEl = document.getElementById('resultScore');
-            scoreEl.textContent = `${totalScore}/100`;
+            scoreEl.textContent = `${pgScore}/100`;
             
-            if (totalScore >= 80) {
+            if (pgScore === 100) {
+                scoreEl.className = 'result-score excellent';
+                document.getElementById('resultMessage').textContent = '🌟 Sempurna! Semua jawaban PG benar!';
+            } else if (pgScore >= 80) {
                 scoreEl.className = 'result-score excellent';
                 document.getElementById('resultMessage').textContent = '🌟 Luar Biasa! Kamu hebat sekali!';
-            } else if (totalScore >= 60) {
+            } else if (pgScore >= 60) {
                 scoreEl.className = 'result-score good';
-                document.getElementById('resultMessage').textContent = '👍 Bagus! Terus belajar ya!';
+                document.getElementById('resultMessage').textContent = ' Bagus! Terus belajar ya!';
             } else {
                 scoreEl.className = 'result-score poor';
                 document.getElementById('resultMessage').textContent = '💪 Jangan menyerah! Ayo belajar lagi!';
