@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Belajar Bahasa Arab - Anggota Badan (أعضاء الجسم)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .header .arabic-title {
+            font-size: 2.5em;
+            color: #e74c3c;
+            font-family: 'Traditional Arabic', 'Arial', sans-serif;
+            direction: rtl;
+        }
+
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .vocabulary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .vocab-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .vocab-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .vocab-card:nth-child(even) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .vocab-card:nth-child(3n) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .vocab-card:nth-child(4n) {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .vocab-arabic {
+            font-size: 2em;
+            font-family: 'Traditional Arabic', 'Arial', sans-serif;
+            direction: rtl;
+            margin-bottom: 10px;
+        }
+
+        .vocab-latin {
+            font-size: 1em;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .vocab-indo {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .nama-section {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .nama-section label {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .nama-section input {
+            width: 80%;
+            max-width: 400px;
+            padding: 15px 20px;
+            border: 3px solid #667eea;
+            border-radius: 50px;
+            font-size: 1.1em;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .nama-section input:focus {
+            border-color: #e74c3c;
+        }
+
+        .quiz-section {
+            display: none;
+        }
+
+        .quiz-section.active {
+            display: block;
+        }
+
+        .question-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+        }
+
+        .question-card.essay {
+            border-left: 5px solid #f39c12;
+            background: #fffef5;
+        }
+
+        .question-number {
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .question-number.essay-num {
+            background: #f39c12;
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .question-arabic {
+            font-size: 2em;
+            color: #e74c3c;
+            font-family: 'Traditional Arabic', 'Arial', sans-serif;
+            direction: rtl;
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f0ff;
+        }
+
+        .option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 1.05em;
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #e8e8ff;
+        }
+
+        .essay-textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: inherit;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .essay-textarea:focus {
+            border-color: #f39c12;
+        }
+
+        .essay-hint {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: bold;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .btn-start:hover {
+            transform: scale(1.05);
+        }
+
+        .result-section {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .result-section.active {
+            display: block;
+        }
+
+        .result-score {
+            font-size: 4em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .result-score.excellent {
+            color: #27ae60;
+        }
+
+        .result-score.good {
+            color: #f39c12;
+        }
+
+        .result-score.poor {
+            color: #e74c3c;
+        }
+
+        .result-message {
+            font-size: 1.3em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .result-detail {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .result-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-item.essay-result {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .correct {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .wrong {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .partial {
+            color: #f39c12;
+            font-weight: bold;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #ffe6e6;
+            color: #e74c3c;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        .score-breakdown {
+            background: #e8f4f8;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        .score-item .label {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        .score-item .value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+            .header .arabic-title {
+                font-size: 2em;
+            }
+            .vocabulary-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .question-arabic {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="arabic-title">أَعْضَاءُ الْجِسْمِ</div>
+            <h1>📚 Anggota Badan</h1>
+            <p class="subtitle">Bahasa Arab • Kelas 3 SD • الدَّرْسُ الْأَوَّلُ</p>
+        </div>
+
+        <!-- MATERI KOSAKATA -->
+        <div class="section" id="materiSection">
+            <div class="section-title">
+                📖 Kosakata Anggota Badan
+            </div>
+            <p style="margin-bottom: 15px; color: #555;">🔊 Klik kartu untuk mendengar pengucapan!</p>
+            <div class="vocabulary-grid">
+                <div class="vocab-card" onclick="speak('رَأْسٌ')">
+                    <div class="vocab-arabic">رَأْسٌ</div>
+                    <div class="vocab-latin">ra'sun</div>
+                    <div class="vocab-indo">Kepala</div>
+                </div>
+                <div class="vocab-card" onclick="speak('عَيْنٌ')">
+                    <div class="vocab-arabic">عَيْنٌ</div>
+                    <div class="vocab-latin">'ainun</div>
+                    <div class="vocab-indo">Mata</div>
+                </div>
+                <div class="vocab-card" onclick="speak('أَنْفٌ')">
+                    <div class="vocab-arabic">أَنْفٌ</div>
+                    <div class="vocab-latin">'anfun</div>
+                    <div class="vocab-indo">Hidung</div>
+                </div>
+                <div class="vocab-card" onclick="speak('فَمٌ')">
+                    <div class="vocab-arabic">فَمٌ</div>
+                    <div class="vocab-latin">famun</div>
+                    <div class="vocab-indo">Mulut</div>
+                </div>
+                <div class="vocab-card" onclick="speak('أُذُنٌ')">
+                    <div class="vocab-arabic">أُذُنٌ</div>
+                    <div class="vocab-latin">'udzunun</div>
+                    <div class="vocab-indo">Telinga</div>
+                </div>
+                <div class="vocab-card" onclick="speak('شَعْرٌ')">
+                    <div class="vocab-arabic">شَعْرٌ</div>
+                    <div class="vocab-latin">sy'arun</div>
+                    <div class="vocab-indo">Rambut</div>
+                </div>
+                <div class="vocab-card" onclick="speak('يَدٌ')">
+                    <div class="vocab-arabic">يَدٌ</div>
+                    <div class="vocab-latin">yadun</div>
+                    <div class="vocab-indo">Tangan</div>
+                </div>
+                <div class="vocab-card" onclick="speak('رِجْلٌ')">
+                    <div class="vocab-arabic">رِجْلٌ</div>
+                    <div class="vocab-latin">rijlun</div>
+                    <div class="vocab-indo">Kaki</div>
+                </div>
+                <div class="vocab-card" onclick="speak('بَطْنٌ')">
+                    <div class="vocab-arabic">بَطْنٌ</div>
+                    <div class="vocab-latin">batnun</div>
+                    <div class="vocab-indo">Perut</div>
+                </div>
+                <div class="vocab-card" onclick="speak('صَدْرٌ')">
+                    <div class="vocab-arabic">صَدْرٌ</div>
+                    <div class="vocab-latin">shadrun</div>
+                    <div class="vocab-indo">Dada</div>
+                </div>
+                <div class="vocab-card" onclick="speak('إِصْبَعٌ')">
+                    <div class="vocab-arabic">إِصْبَعٌ</div>
+                    <div class="vocab-latin">ishba'un</div>
+                    <div class="vocab-indo">Jari</div>
+                </div>
+                <div class="vocab-card" onclick="speak('وَجْهٌ')">
+                    <div class="vocab-arabic">وَجْهٌ</div>
+                    <div class="vocab-latin">wajhun</div>
+                    <div class="vocab-indo">Wajah</div>
+                </div>
+                <div class="vocab-card" onclick="speak('رُكْبَةٌ')">
+                    <div class="vocab-arabic">رُكْبَةٌ</div>
+                    <div class="vocab-latin">rukbatun</div>
+                    <div class="vocab-indo">Lutut</div>
+                </div>
+                <div class="vocab-card" onclick="speak('حَاجِبٌ')">
+                    <div class="vocab-arabic">حَاجِبٌ</div>
+                    <div class="vocab-latin">hajibun</div>
+                    <div class="vocab-indo">Alis</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INPUT NAMA -->
+        <div class="section" id="namaSection">
+            <div class="nama-section">
+                <label for="studentName">✏️ Masukkan Nama Lengkapmu:</label>
+                <input type="text" id="studentName" placeholder="Ketik namamu di sini..." autocomplete="off">
+                <br>
+                <button class="btn-start" onclick="startQuiz()">🚀 Mulai Mengerjakan Soal</button>
+                <div class="error-message" id="namaError">
+                    ⚠️ Nama harus diisi sebelum mengerjakan soal!
+                </div>
+            </div>
+        </div>
+
+        <!-- SOAL QUIZ -->
+        <div class="quiz-section" id="quizSection">
+            <div class="section">
+                <div class="section-title">
+                    📝 Bagian A - 10 Soal Pilihan Ganda (70 poin)
+                </div>
+
+                <!-- Soal PG 1 -->
+                <div class="question-card">
+                    <div class="question-text">
+                        <span class="question-number">1</span>
+                        Pengucapan kosakata berikut yang benar adalah ....
+                    </div>
+                    <div class="question-arabic">عَيْنٌ</div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(1, 'A')">
+                            <input type="radio" name="q1" value="A" id="q1a">
+                            <label for="q1a">A. 'ainun</label>
+                        </div>
+                        <div class="option" onclick="selectOption(1, 'B')">
+                            <input type="radio" name="q1" value="B" id="q1b">
+                            <label for="q1b">B. 'ainan</label>
+                        </div>
+                        <div class="option" onclick="selectOption(1, 'C')">
+                            <input type="radio" name="q1" value="C" id="q1c">
+                            <label for="q1c">C. 'unain</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soal PG 2 -->
+                <div class="question-card">
+                    <div class="question-text">
+                        <span class="question-number">2</span>
+                        Penulisan ucapan "ra'sun" (kepala) yang benar adalah ....
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(2, 'A')">
+                            <input type="radio" name="q2" value="A" id="q2a">
+                            <label for="q2a">A. رَجَلٌ</label>
+                        </div>
+                        <div class="option" onclick="selectOption(2, 'B')">
+                            <input type="radio" name="q2" value="B" id="q2b">
+                            <label for="q2b">B. رَأْسٌ</label>
+                        </div>
+                        <div class="option" onclick="selectOption(2, 'C')">
+                            <input type="radio" name="q2" value="C" id="q2c">
+                            <label for="q2c">C. رِحْلٌ</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soal PG 3 -->
+                <div class="question-card">
+                    <div class="question-text">
+                        <span class="question-number">3</span>
+                        Arti kosakata berikut adalah ....
+                    </div>
+                    <div class="question-arabic">فَمٌ</div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(3, 'A')">
+                            <input type="radio" name="q3" value="A" id="q3a">
+                            <label for="q3a">A. Tangan</label>
+                        </div>
+                        <div class="option" onclick="selectOption(3, 'B')">
+                            <input type="radio" name="q3" value="B" id="q3b">
+                            <label for="q3b">B. Mulut</label>
+                        </div>
+                        <div class="option" onclick="selectOption(3, 'C')">
+                            <input type="radio" name="q3" value="C" id="q3c">
+                            <label for="q3c">C. Mata</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soal PG 4 -->
+                <div class="question-card">
+                    <div class="question-text">
+                        <span class="question-number">4</span>
+                        Pengucapan kosakata berikut yang benar adalah ....
+                    </div>
+                    <div class="question-arabic">أُذُنٌ</div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(4, 'A')">
+                            <input type="radio" name="q4" value="A" id="q4a">
+                            <label for="q4a">A. 'udzunan</label>
+                        </div>
+                        <div class="option" onclick="selectOption(4, 'B')">
+                            <input type="radio" name="q4" value="B" id="q4b">
+                            <label for="q4b">B. 'udzunun</label>
+                        </div>
+                        <div class="option" onclick="selectOption(4, 'C')">
+                            <input type="radio" name="q4" value="C" id="q4c">
+                            <label for="q4c">C. 'udzanun</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soal PG 5 -->
+                <div class="question-card">
+                    <div class="question-text">
+                        <span class="question-number">5</span>
+                        Arti kosakata "يَدٌ" (yadun) adalah ....
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(5, 'A')">
+                            <input type="radio" name="q5" value="A" id="q5a">
+                            <label for="q5a">A. Kaki</label>
+                        </div>
+                        <div class="option" onclick="selectOption(5, 'B')">
+                            <input type="radio" name="q5" value="B" id="q5b">
+                            <label for="q5b">B. Tangan</label>
+                        </div>
+                        <div class="option" onclick="selectOption(5, 'C')">
+                            <input type="radio" name="q5" value="C" id="q5c">
+                            <label for="q5c">C. Jari</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soal PG 6 -->
+                <div class="question-card">
+                    <div class="question-text">
+                        <span class="question-number">6</span>
+                        Penulisan ucapan "batnun" (perut) yang benar adalah ....
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(6, 'A')">
+                            <input type="radio" name="q6" value="A" id="q6a">
+                            <label for="q6a">A. بَطْنٌ</label>
+                        </div>
+                        <div class="option" onclick="selectOption(6, 'B')">
+                            <input type="radio" name="q6" value="B" id="q6b">
+                            <label for="q6b">B. بَتْنٌ</label>
+                        </div>
+                        <div class="option" onclick="selectOption(6, 'C')">
+                            <input type="radio" name="q6" value="C" id="q6c">
+                            <label for="q6c">C. بَطُنٌ</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soal PG 7 -->
+                <div class="question-card">
+                    <div class="question-text">
+                        <span class="question-number">7</span>
+                        Arti kosakata berikut adalah ....
+                    </div>
+                    <div class="question-arabic">شَعْرٌ</div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(7, 'A')">
+                            <input type="radio" name="q7" value="A" id="q7a">
+                            <label for="q7a">A. Wajah</label>
+                        </div>
+                        <div class="option" onclick="selectOption(7, 'B')">
+                            <input type="radio" name="q7" value="B" id="q7b">
+                            <label for="q7b">B. Alis</label>
+                        </div>
+                        <div class="option" onclick="selectOption(7, 'C')">
+                            <input type="radio" name="q7" value="C" id="q7c">
+                            <label for="q7c">C. Rambut</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soal PG 8 -->
+                <div class="question-card">
+                    <div class="question-text">
+                        <span class="question-number">8</span>
+                        Pengucapan kosakata berikut yang benar adalah ....
+                    </div>
+                    <div class="question-arabic">رِجْلٌ</div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(8, 'A')">
+                            <input type="radio" name="q8" value="A" id="q8a">
+                            <label for="q8a">A. rajlun</label>
+                        </div>
+                        <div class="option" onclick="selectOption(8, 'B')">
+                            <input type="radio" name="q8" value="B" id="q8b">
+                            <label for="q8b">B. rijlun</label>
+                        </div>
+                        <div class="option" onclick="selectOption(8, 'C')">
+                            <input type="radio" name="q8" value="C" id="q8c">
+                            <label for="q8c">C. rujlun</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soal PG 9 -->
+                <div class="question-card">
+                    <div class="question-text">
+                        <span class="question-number">9</span>
+                        Arti kosakata "صَدْرٌ" (shadrun) adalah ....
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(9, 'A')">
+                            <input type="radio" name="q9" value="A" id="q9a">
+                            <label for="q9a">A. Perut</label>
+                        </div>
+                        <div class="option" onclick="selectOption(9, 'B')">
+                            <input type="radio" name="q9" value="B" id="q9b">
+                            <label for="q9b">B. Dada</label>
+                        </div>
+                        <div class="option" onclick="selectOption(9, 'C')">
+                            <input type="radio" name="q9" value="C" id="q9c">
+                            <label for="q9c">C. Punggung</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soal PG 10 -->
+                <div class="question-card">
+                    <div class="question-text">
+                        <span class="question-number">10</span>
+                        Penulisan ucapan "ishba'un" (jari) yang benar adalah ....
+                    </div>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(10, 'A')">
+                            <input type="radio" name="q10" value="A" id="q10a">
+                            <label for="q10a">A. إِصْبَعٌ</label>
+                        </div>
+                        <div class="option" onclick="selectOption(10, 'B')">
+                            <input type="radio" name="q10" value="B" id="q10b">
+                            <label for="q10b">B. إِسْبَعٌ</label>
+                        </div>
+                        <div class="option" onclick="selectOption(10, 'C')">
+                            <input type="radio" name="q10" value="C" id="q10c">
+                            <label for="q10c">C. أُصْبُعٌ</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SOAL ESSAY -->
+                <div class="section-title" style="background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); margin-top: 30px;">
+                    ✍️ Bagian B - 3 Soal Essay (30 poin)
+                </div>
+
+                <!-- Essay 1 -->
+                <div class="question-card essay">
+                    <div class="question-text">
+                        <span class="question-number essay-num">11</span>
+                        Terjemahkan kosakata Arab berikut ke dalam bahasa Indonesia:
+                    </div>
+                    <div class="question-arabic">رُكْبَةٌ</div>
+                    <textarea class="essay-textarea" id="essay1" placeholder="Tulis jawabanmu di sini..."></textarea>
+                    <div class="essay-hint">💡 Petunjuk: Ini adalah bagian tubuh di antara paha dan betis.</div>
+                </div>
+
+                <!-- Essay 2 -->
+                <div class="question-card essay">
+                    <div class="question-text">
+                        <span class="question-number essay-num">12</span>
+                        Tuliskan kosakata bahasa Arab untuk "telinga" beserta harakatnya!
+                    </div>
+                    <textarea class="essay-textarea" id="essay2" placeholder="Tulis jawabanmu di sini..."></textarea>
+                    <div class="essay-hint">💡 Petunjuk: Diawali dengan huruf hamzah (أ) dan berakhiran tanwin dhammah (ٌ).</div>
+                </div>
+
+                <!-- Essay 3 -->
+                <div class="question-card essay">
+                    <div class="question-text">
+                        <span class="question-number essay-num">13</span>
+                        Sebutkan 3 anggota badan yang ada di bagian kepala dalam bahasa Arab!
+                    </div>
+                    <textarea class="essay-textarea" id="essay3" placeholder="Tulis jawabanmu di sini... (contoh: 1. ... 2. ... 3. ...)"></textarea>
+                    <div class="essay-hint">💡 Petunjuk: Pikirkan anggota badan seperti mata, hidung, telinga, rambut, alis, dll.</div>
+                </div>
+
+                <button class="btn-submit" onclick="submitQuiz()" id="submitBtn">
+                    ✅ Kirim Jawaban & Lihat Nilai
+                </button>
+            </div>
+        </div>
+
+        <!-- LOADING -->
+        <div class="loading" id="loadingSection">
+            <div class="spinner"></div>
+            <p style="font-size: 1.2em; color: #667eea;">Mengirim jawaban dan menghitung nilai...</p>
+        </div>
+
+        <!-- HASIL -->
+        <div class="result-section" id="resultSection">
+            <h2 style="color: #2c3e50; font-size: 2em;">🎉 Hasil Ujian</h2>
+            <p style="font-size: 1.2em; color: #555; margin-top: 10px;" id="resultName"></p>
+            
+            <div class="score-breakdown">
+                <div class="score-item">
+                    <div class="label">Pilihan Ganda</div>
+                    <div class="value" id="pgScore">0/70</div>
+                </div>
+                <div class="score-item">
+                    <div class="label">Essay</div>
+                    <div class="value" id="essayScore">0/30</div>
+                </div>
+                <div class="score-item">
+                    <div class="label">Total Nilai</div>
+                    <div class="value" id="totalScore">0/100</div>
+                </div>
+            </div>
+
+            <div class="result-score" id="resultScore"></div>
+            <div class="result-message" id="resultMessage"></div>
+            <div class="result-detail" id="resultDetail"></div>
+            <button class="btn-submit" onclick="location.reload()" style="margin-top: 20px;">
+                🔄 Kerjakan Ulang
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ===== URL GOOGLE APPS SCRIPT (SUDAH DIPERBARUI) =====
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyxxI0jeaBQ_Aa5pZ8N7qFDoQBHv1DAlcHaVq61VeBEwoh_x3whmL5B8gaz6l_uQFvk/exec';
+
+        // Kunci Jawaban PG
+        const correctAnswers = {
+            1: 'A',  // 'ainun
+            2: 'B',  // رَأْسٌ
+            3: 'B',  // Mulut
+            4: 'B',  // 'udzunun
+            5: 'B',  // Tangan
+            6: 'A',  // بَطْنٌ
+            7: 'C',  // Rambut
+            8: 'B',  // rijlun
+            9: 'B',  // Dada
+            10: 'A'  // إِصْبَعٌ
+        };
+
+        // Kunci Jawaban Essay (dengan variasi jawaban yang diterima)
+        const essayAnswers = {
+            1: {
+                keywords: ['lutut'],
+                fullAnswer: 'Lutut',
+                points: 10
+            },
+            2: {
+                keywords: ['أُذُنٌ', 'أذن', 'udzun', "'udzun", 'udzunun', "'udzunun"],
+                fullAnswer: 'أُذُنٌ (\'udzunun)',
+                points: 10
+            },
+            3: {
+                keywords: ['رَأْسٌ', 'رأس', 'عَيْنٌ', 'عين', 'أَنْفٌ', 'أنف', 'فَمٌ', 'فم', 'أُذُنٌ', 'أذن', 'شَعْرٌ', 'شعر', 'حَاجِبٌ', 'حاجب', 'kepala', 'mata', 'hidung', 'mulut', 'telinga', 'rambut', 'alis', 'wajah'],
+                minRequired: 3,
+                fullAnswer: 'Contoh: رَأْسٌ (kepala), عَيْنٌ (mata), أَنْفٌ (hidung)',
+                points: 10
+            }
+        };
+
+        let studentName = '';
+        let answers = {};
+        let essayAnswers_submitted = {};
+
+        // Fungsi Text-to-Speech untuk Arab
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.8;
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('Browser tidak mendukung text-to-speech');
+            }
+        }
+
+        // Mulai Quiz
+        function startQuiz() {
+            studentName = document.getElementById('studentName').value.trim();
+            
+            if (studentName === '') {
+                document.getElementById('namaError').classList.add('active');
+                document.getElementById('studentName').focus();
+                return;
+            }
+            
+            document.getElementById('namaError').classList.remove('active');
+            document.getElementById('quizSection').classList.add('active');
+            document.getElementById('namaSection').style.display = 'none';
+            
+            setTimeout(() => {
+                document.getElementById('quizSection').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        // Pilih Opsi PG
+        function selectOption(questionNum, option) {
+            answers[questionNum] = option;
+            
+            const options = document.querySelectorAll(`input[name="q${questionNum}"]`);
+            options.forEach(opt => {
+                opt.closest('.option').classList.remove('selected');
+            });
+            
+            document.getElementById(`q${questionNum}${option.toLowerCase()}`).closest('.option').classList.add('selected');
+            document.getElementById(`q${questionNum}${option.toLowerCase()}`).checked = true;
+        }
+
+        // Normalisasi teks untuk pencocokan
+        function normalizeText(text) {
+            return text.toLowerCase().trim().replace(/\s+/g, ' ');
+        }
+
+        // Cek jawaban essay
+        function checkEssay(essayNum, userAnswer) {
+            const answer = essayAnswers[essayNum];
+            const normalizedAnswer = normalizeText(userAnswer);
+            
+            if (normalizedAnswer === '') return { score: 0, feedback: 'Tidak ada jawaban' };
+
+            if (essayNum === 3) {
+                // Soal 3: perlu minimal 3 jawaban benar
+                let matchedKeywords = [];
+                answer.keywords.forEach(keyword => {
+                    if (normalizedAnswer.includes(normalizeText(keyword))) {
+                        matchedKeywords.push(keyword);
+                    }
+                });
+                
+                const uniqueMatches = [...new Set(matchedKeywords)];
+                const score = Math.min((uniqueMatches.length / answer.minRequired) * answer.points, answer.points);
+                
+                return {
+                    score: Math.round(score),
+                    feedback: `Kata kunci terdeteksi: ${uniqueMatches.length} dari ${answer.minRequired} yang diperlukan`,
+                    matched: uniqueMatches
+                };
+            } else {
+                // Soal 1 dan 2: cek apakah ada keyword yang cocok
+                let matched = false;
+                let matchedKeyword = '';
+                
+                answer.keywords.forEach(keyword => {
+                    if (normalizedAnswer.includes(normalizeText(keyword))) {
+                        matched = true;
+                        matchedKeyword = keyword;
+                    }
+                });
+                
+                if (matched) {
+                    return { score: answer.points, feedback: 'Jawaban benar!', matched: matchedKeyword };
+                } else {
+                    return { score: 0, feedback: 'Jawaban kurang tepat' };
+                }
+            }
+        }
+
+        // Submit Quiz
+        function submitQuiz() {
+            // Cek semua soal PG sudah dijawab
+            for (let i = 1; i <= 10; i++) {
+                if (!answers[i]) {
+                    alert(`⚠️ Soal nomor ${i} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
+                    const questionCard = document.querySelectorAll('.question-card')[i - 1];
+                    if (questionCard) {
+                        questionCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        questionCard.style.borderLeft = '5px solid #e74c3c';
+                        setTimeout(() => {
+                            questionCard.style.borderLeft = '5px solid #667eea';
+                        }, 2000);
+                    }
+                    return;
+                }
+            }
+
+            // Cek semua essay sudah dijawab
+            for (let i = 1; i <= 3; i++) {
+                const essayValue = document.getElementById(`essay${i}`).value.trim();
+                if (essayValue === '') {
+                    alert(`⚠️ Soal essay nomor ${i + 10} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
+                    const essayCard = document.querySelectorAll('.question-card.essay')[i - 1];
+                    if (essayCard) {
+                        essayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        essayCard.style.borderLeft = '5px solid #e74c3c';
+                        setTimeout(() => {
+                            essayCard.style.borderLeft = '5px solid #f39c12';
+                        }, 2000);
+                    }
+                    return;
+                }
+                essayAnswers_submitted[i] = essayValue;
+            }
+
+            // Hitung nilai PG
+            let pgCorrect = 0;
+            let detailHTML = '<h3 style="margin-bottom: 15px;">📋 Detail Jawaban Pilihan Ganda:</h3>';
+            
+            for (let i = 1; i <= 10; i++) {
+                const isCorrect = answers[i] === correctAnswers[i];
+                if (isCorrect) pgCorrect++;
+                
+                detailHTML += `
+                    <div class="result-item">
+                        <span>Soal ${i}: Jawabanmu <strong>${answers[i]}</strong> 
+                        ${isCorrect ? '<span class="correct">✓ Benar (7 poin)</span>' : `<span class="wrong">✗ Salah (Kunci: ${correctAnswers[i]})</span>`}</span>
+                    </div>
+                `;
+            }
+
+            const pgScore = pgCorrect * 7;
+
+            // Hitung nilai Essay
+            let essayTotalScore = 0;
+            detailHTML += '<h3 style="margin: 20px 0 15px 0;">✍️ Detail Jawaban Essay:</h3>';
+            
+            const essayResults = [];
+            for (let i = 1; i <= 3; i++) {
+                const result = checkEssay(i, essayAnswers_submitted[i]);
+                essayTotalScore += result.score;
+                essayResults.push(result);
+                
+                detailHTML += `
+                    <div class="result-item essay-result">
+                        <div style="width: 100%;">
+                            <strong>Soal ${i + 10}:</strong> Jawabanmu: "${essayAnswers_submitted[i]}"
+                        </div>
+                        <div style="width: 100%; margin-top: 5px;">
+                            ${result.score === essayAnswers[i].points ? 
+                                `<span class="correct">✓ ${result.feedback} (${result.score}/${essayAnswers[i].points} poin)</span>` :
+                                result.score > 0 ?
+                                `<span class="partial">◐ ${result.feedback} (${result.score}/${essayAnswers[i].points} poin)</span>` :
+                                `<span class="wrong">✗ ${result.feedback} (0/${essayAnswers[i].points} poin)</span>`
+                            }
+                            <br><small style="color: #7f8c8d;">Jawaban yang diharapkan: ${essayAnswers[i].fullAnswer}</small>
+                        </div>
+                    </div>
+                `;
+            }
+
+            const totalScore = pgScore + essayTotalScore;
+
+            // Tampilkan loading
+            document.getElementById('quizSection').style.display = 'none';
+            document.getElementById('loadingSection').classList.add('active');
+
+            // Kirim ke Google Spreadsheet
+            const data = {
+                nama: studentName,
+                jawabanPG: Object.values(answers),
+                jawabanEssay: Object.values(essayAnswers_submitted),
+                nilaiPG: pgScore,
+                nilaiEssay: essayTotalScore,
+                nilaiTotal: totalScore
+            };
+
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            }).then(() => {
+                showResult(pgCorrect, pgScore, essayTotalScore, totalScore, detailHTML);
+            }).catch(error => {
+                console.error('Error sending data:', error);
+                showResult(pgCorrect, pgScore, essayTotalScore, totalScore, detailHTML);
+            });
+
+            setTimeout(() => {
+                if (document.getElementById('loadingSection').classList.contains('active')) {
+                    showResult(pgCorrect, pgScore, essayTotalScore, totalScore, detailHTML);
+                }
+            }, 3000);
+        }
+
+        // Tampilkan Hasil
+        function showResult(pgCorrect, pgScore, essayScore, totalScore, detailHTML) {
+            document.getElementById('loadingSection').classList.remove('active');
+            document.getElementById('resultSection').classList.add('active');
+            
+            document.getElementById('resultName').textContent = `Nama: ${studentName}`;
+            document.getElementById('pgScore').textContent = `${pgScore}/70`;
+            document.getElementById('essayScore').textContent = `${essayScore}/30`;
+            document.getElementById('totalScore').textContent = `${totalScore}/100`;
+            
+            const scoreEl = document.getElementById('resultScore');
+            scoreEl.textContent = `${totalScore}/100`;
+            
+            if (totalScore >= 80) {
+                scoreEl.className = 'result-score excellent';
+                document.getElementById('resultMessage').textContent = '🌟 Luar Biasa! Kamu hebat sekali!';
+            } else if (totalScore >= 60) {
+                scoreEl.className = 'result-score good';
+                document.getElementById('resultMessage').textContent = '👍 Bagus! Terus belajar ya!';
+            } else {
+                scoreEl.className = 'result-score poor';
+                document.getElementById('resultMessage').textContent = '💪 Jangan menyerah! Ayo belajar lagi!';
+            }
+            
+            document.getElementById('resultDetail').innerHTML = detailHTML;
+            
+            setTimeout(() => {
+                document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        // Enter key untuk mulai quiz
+        document.getElementById('studentName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                startQuiz();
+            }
+        });
+    </script>
+</body>
+</html>
