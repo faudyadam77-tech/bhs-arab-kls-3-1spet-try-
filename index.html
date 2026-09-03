@@ -18,6 +18,127 @@
             padding: 20px;
         }
 
+        /* ===== OVERLAY START SCREEN ===== */
+        .start-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            cursor: pointer;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .start-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .start-overlay h1 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .start-overlay .arabic-big {
+            font-size: 3em;
+            color: #ffd700;
+            font-family: 'Traditional Arabic', 'Arial', sans-serif;
+            direction: rtl;
+            margin-bottom: 30px;
+        }
+
+        .start-overlay .start-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 20px 50px;
+            font-size: 1.5em;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        .start-overlay .start-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .start-overlay .music-note {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+
+        /* ===== MUSIC CONTROL BUTTON ===== */
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: transform 0.3s;
+            display: none;
+        }
+
+        .music-control.visible {
+            display: block;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+
+        .music-control.playing {
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== YOUTUBE PLAYER HIDDEN ===== */
+        .youtube-player-container {
+            position: fixed;
+            top: -9999px;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ===== STYLING LAINNYA (SAMA SEPERTI SEBELUMNYA) ===== */
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -481,10 +602,35 @@
             .question-arabic {
                 font-size: 1.5em;
             }
+            .start-overlay h1 {
+                font-size: 1.8em;
+            }
+            .start-overlay .arabic-big {
+                font-size: 2em;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- ===== OVERLAY START SCREEN ===== -->
+    <div class="start-overlay" id="startOverlay" onclick="startExperience()">
+        <div class="music-note">🎵</div>
+        <h1>Selamat Datang di<br>Belajar Bahasa Arab</h1>
+        <div class="arabic-big">أَعْضَاءُ الْجِسْمِ</div>
+        <button class="start-btn">🎧 Klik untuk Mulai<br><small style="font-weight: normal; font-size: 0.7em;">(Musik akan otomatis diputar)</small></button>
+    </div>
+
+    <!-- ===== TOMBOL KONTROL MUSIK ===== -->
+    <button class="music-control" id="musicControl" onclick="toggleMusic()" title="Play/Pause Musik">
+        🎵
+    </button>
+
+    <!-- ===== YOUTUBE PLAYER (HIDDEN) ===== -->
+    <div class="youtube-player-container">
+        <div id="youtubePlayer"></div>
+    </div>
+
+    <!-- ===== KONTEN UTAMA ===== -->
     <div class="container">
         <!-- HEADER -->
         <div class="header">
@@ -596,7 +742,7 @@
                     ℹ️ Setiap soal bernilai <strong>10 poin</strong>. Total nilai PG = <strong>100</strong> jika benar semua.
                 </p>
 
-                <!-- Soal PG 1 -->
+                <!-- Soal PG 1-10 (sama seperti sebelumnya) -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">1</span>
@@ -619,7 +765,6 @@
                     </div>
                 </div>
 
-                <!-- Soal PG 2 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">2</span>
@@ -641,7 +786,6 @@
                     </div>
                 </div>
 
-                <!-- Soal PG 3 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">3</span>
@@ -664,7 +808,6 @@
                     </div>
                 </div>
 
-                <!-- Soal PG 4 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">4</span>
@@ -687,7 +830,6 @@
                     </div>
                 </div>
 
-                <!-- Soal PG 5 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">5</span>
@@ -709,7 +851,6 @@
                     </div>
                 </div>
 
-                <!-- Soal PG 6 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">6</span>
@@ -731,7 +872,6 @@
                     </div>
                 </div>
 
-                <!-- Soal PG 7 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">7</span>
@@ -754,7 +894,6 @@
                     </div>
                 </div>
 
-                <!-- Soal PG 8 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">8</span>
@@ -777,7 +916,6 @@
                     </div>
                 </div>
 
-                <!-- Soal PG 9 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">9</span>
@@ -799,7 +937,6 @@
                     </div>
                 </div>
 
-                <!-- Soal PG 10 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">10</span>
@@ -829,7 +966,6 @@
                     ℹ️ Jawaban essay akan dikirim ke guru untuk dinilai secara manual.
                 </p>
 
-                <!-- Essay 1 -->
                 <div class="question-card essay">
                     <div class="question-text">
                         <span class="question-number essay-num">11</span>
@@ -843,7 +979,6 @@
                     </div>
                 </div>
 
-                <!-- Essay 2 -->
                 <div class="question-card essay">
                     <div class="question-text">
                         <span class="question-number essay-num">12</span>
@@ -856,7 +991,6 @@
                     </div>
                 </div>
 
-                <!-- Essay 3 -->
                 <div class="question-card essay">
                     <div class="question-text">
                         <span class="question-number essay-num">13</span>
@@ -912,30 +1046,105 @@
         </div>
     </div>
 
+    <!-- ===== YOUTUBE IFRAME API ===== -->
     <script>
-        // ===== URL GOOGLE APPS SCRIPT =====
+        // Load YouTube IFrame API
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var isMusicPlaying = false;
+
+        // Dipanggil otomatis oleh YouTube API ketika siap
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtubePlayer', {
+                height: '1',
+                width: '1',
+                videoId: 'qKVW_wJs91Q', // Video ID dari link YouTube
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0,
+                    'loop': 1,
+                    'playlist': 'qKVW_wJs91Q', // Required for loop
+                    'showinfo': 0,
+                    'rel': 0,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Player siap, tapi belum diputar (menunggu user interaction)
+            console.log('YouTube player ready');
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+                isMusicPlaying = true;
+                document.getElementById('musicControl').classList.add('playing');
+                document.getElementById('musicControl').innerHTML = '🎵';
+            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                isMusicPlaying = false;
+                document.getElementById('musicControl').classList.remove('playing');
+                document.getElementById('musicControl').innerHTML = '🔇';
+            }
+        }
+
+        // Mulai pengalaman (dipanggil saat klik overlay)
+        function startExperience() {
+            // Sembunyikan overlay
+            document.getElementById('startOverlay').classList.add('hidden');
+            
+            // Tampilkan tombol kontrol musik
+            document.getElementById('musicControl').classList.add('visible');
+            
+            // Mulai putar musik
+            if (player && player.playVideo) {
+                player.setVolume(50); // Volume 50%
+                player.playVideo();
+            }
+        }
+
+        // Toggle play/pause musik
+        function toggleMusic() {
+            if (!player) return;
+            
+            if (isMusicPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        // ===== FUNGSI QUIZ (SAMA SEPERTI SEBELUMNYA) =====
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyxxI0jeaBQ_Aa5pZ8N7qFDoQBHv1DAlcHaVq61VeBEwoh_x3whmL5B8gaz6l_uQFvk/exec';
 
-        // Kunci Jawaban PG
         const correctAnswers = {
-            1: 'A',  // 'ainun
-            2: 'B',  // رَأْسٌ
-            3: 'B',  // Mulut
-            4: 'B',  // 'udzunun
-            5: 'B',  // Tangan
-            6: 'A',  // بَطْنٌ
-            7: 'C',  // Rambut
-            8: 'B',  // rijlun
-            9: 'B',  // Dada
-            10: 'A'  // إِصْبَعٌ
+            1: 'A', 2: 'B', 3: 'B', 4: 'B', 5: 'B',
+            6: 'A', 7: 'C', 8: 'B', 9: 'B', 10: 'A'
         };
 
         let studentName = '';
         let answers = {};
         let essayAnswers_submitted = {};
 
-        // Fungsi Text-to-Speech untuk Arab
         function speak(text) {
+            // Pause musik sebentar saat TTS
+            if (player && isMusicPlaying) {
+                player.pauseVideo();
+                setTimeout(() => {
+                    if (player && !isMusicPlaying) {
+                        player.playVideo();
+                    }
+                }, 2000);
+            }
+            
             if ('speechSynthesis' in window) {
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ar-SA';
@@ -946,7 +1155,6 @@
             }
         }
 
-        // Mulai Quiz
         function startQuiz() {
             studentName = document.getElementById('studentName').value.trim();
             
@@ -965,7 +1173,6 @@
             }, 100);
         }
 
-        // Pilih Opsi PG
         function selectOption(questionNum, option) {
             answers[questionNum] = option;
             
@@ -978,43 +1185,23 @@
             document.getElementById(`q${questionNum}${option.toLowerCase()}`).checked = true;
         }
 
-        // Submit Quiz
         function submitQuiz() {
-            // Cek semua soal PG sudah dijawab
             for (let i = 1; i <= 10; i++) {
                 if (!answers[i]) {
-                    alert(`️ Soal nomor ${i} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
-                    const questionCard = document.querySelectorAll('.question-card:not(.essay)')[i - 1];
-                    if (questionCard) {
-                        questionCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        questionCard.style.borderLeft = '5px solid #e74c3c';
-                        setTimeout(() => {
-                            questionCard.style.borderLeft = '5px solid #667eea';
-                        }, 2000);
-                    }
+                    alert(`️ Soal nomor ${i} belum dijawab!`);
                     return;
                 }
             }
 
-            // Cek semua essay sudah dijawab
             for (let i = 1; i <= 3; i++) {
                 const essayValue = document.getElementById(`essay${i}`).value.trim();
                 if (essayValue === '') {
-                    alert(`⚠️ Soal essay nomor ${i + 10} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
-                    const essayCard = document.querySelectorAll('.question-card.essay')[i - 1];
-                    if (essayCard) {
-                        essayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        essayCard.style.borderLeft = '5px solid #e74c3c';
-                        setTimeout(() => {
-                            essayCard.style.borderLeft = '5px solid #f39c12';
-                        }, 2000);
-                    }
+                    alert(`⚠️ Soal essay nomor ${i + 10} belum dijawab!`);
                     return;
                 }
                 essayAnswers_submitted[i] = essayValue;
             }
 
-            // Hitung nilai PG (10 soal × 10 poin = 100)
             let pgCorrect = 0;
             let detailHTML = '<h3 style="margin-bottom: 15px;">📋 Detail Jawaban Pilihan Ganda:</h3>';
             
@@ -1030,13 +1217,11 @@
                 `;
             }
 
-            const pgScore = pgCorrect * 10; // 10 soal × 10 poin = maksimal 100
+            const pgScore = pgCorrect * 10;
 
-            // Tampilkan loading
             document.getElementById('quizSection').style.display = 'none';
             document.getElementById('loadingSection').classList.add('active');
 
-            // Kirim ke Google Spreadsheet
             const data = {
                 nama: studentName,
                 jawabanPG: Object.values(answers),
@@ -1049,14 +1234,12 @@
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             }).then(() => {
                 showResult(pgCorrect, pgScore, detailHTML);
             }).catch(error => {
-                console.error('Error sending data:', error);
+                console.error('Error:', error);
                 showResult(pgCorrect, pgScore, detailHTML);
             });
 
@@ -1067,7 +1250,6 @@
             }, 3000);
         }
 
-        // Tampilkan Hasil
         function showResult(pgCorrect, pgScore, detailHTML) {
             document.getElementById('loadingSection').classList.remove('active');
             document.getElementById('resultSection').classList.add('active');
@@ -1080,16 +1262,16 @@
             
             if (pgScore === 100) {
                 scoreEl.className = 'result-score excellent';
-                document.getElementById('resultMessage').textContent = '🌟 Sempurna! Semua jawaban PG benar!';
+                document.getElementById('resultMessage').textContent = '🌟 Sempurna!';
             } else if (pgScore >= 80) {
                 scoreEl.className = 'result-score excellent';
-                document.getElementById('resultMessage').textContent = '🌟 Luar Biasa! Kamu hebat sekali!';
+                document.getElementById('resultMessage').textContent = '🌟 Luar Biasa!';
             } else if (pgScore >= 60) {
                 scoreEl.className = 'result-score good';
-                document.getElementById('resultMessage').textContent = ' Bagus! Terus belajar ya!';
+                document.getElementById('resultMessage').textContent = 'Bagus!';
             } else {
                 scoreEl.className = 'result-score poor';
-                document.getElementById('resultMessage').textContent = '💪 Jangan menyerah! Ayo belajar lagi!';
+                document.getElementById('resultMessage').textContent = '💪 Jangan menyerah!';
             }
             
             document.getElementById('resultDetail').innerHTML = detailHTML;
@@ -1099,11 +1281,8 @@
             }, 100);
         }
 
-        // Enter key untuk mulai quiz
         document.getElementById('studentName').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                startQuiz();
-            }
+            if (e.key === 'Enter') startQuiz();
         });
     </script>
 </body>
