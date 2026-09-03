@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Belajar Bahasa Arab - Anggota Badan (أعضاء الجسم)</title>
+    <title>📚 Belajar Bahasa Arab - Anggota Badan (أعضاء الجسم)</title>
     <style>
         * {
             margin: 0;
@@ -606,17 +606,17 @@
         <div class="music-note">🎵</div>
         <h1>Selamat Datang di<br>Belajar Bahasa Arab</h1>
         <div class="arabic-big">أَعْضَاءُ الْجِسْمِ</div>
-        <button class="start-btn"> Klik untuk Mulai<br><small style="font-weight: normal; font-size: 0.7em;">(Musik akan otomatis diputar)</small></button>
+        <button class="start-btn">🎧 Ketuk untuk Mulai</button>
     </div>
 
     <!-- ===== TOMBOL KONTROL MUSIK ===== -->
     <button class="music-control" id="musicControl" onclick="toggleMusic()" title="Play/Pause Musik">
-        
+        🎵
     </button>
 
     <!-- ===== AUDIO ELEMENT (FILE MP3 DARI GITHUB) ===== -->
     <audio id="bgMusic" loop preload="auto" crossorigin="anonymous">
-        <source src="https://raw.githubusercontent.com/faudyadam77-tech/kun-anta/refs/heads/main/kunanta.mp3" type="audio/mpeg">
+        <source src="https://raw.githubusercontent.com/faudyadam77-tech/sanakhudu/refs/heads/main/sanakhudu.mp3" type="audio/mpeg">
         Browser Anda tidak mendukung audio element.
     </audio>
 
@@ -715,7 +715,7 @@
                 <label for="studentName">✏️ Masukkan Nama Lengkapmu:</label>
                 <input type="text" id="studentName" placeholder="Ketik namamu di sini..." autocomplete="off">
                 <br>
-                <button class="btn-start" onclick="startQuiz()">🚀 Mulai Mengerjakan Soal</button>
+                <button class="btn-start" onclick="startQuiz()"> Mulai Mengerjakan Soal</button>
                 <div class="error-message" id="namaError">
                     ⚠️ Nama harus diisi sebelum mengerjakan soal!
                 </div>
@@ -975,7 +975,7 @@
                     <textarea class="essay-textarea" id="essay1" placeholder="Tulis jawabanmu di sini..."></textarea>
                     <div class="essay-hint">💡 Petunjuk: Ini adalah bagian tubuh di antara paha dan betis.</div>
                     <div class="essay-notice">
-                        📌 Jawaban essay ini akan dinilai oleh guru.
+                         Jawaban essay ini akan dinilai oleh guru.
                     </div>
                 </div>
 
@@ -1001,7 +1001,7 @@
                     <textarea class="essay-textarea" id="essay3" placeholder="Tulis jawabanmu di sini... (contoh: 1. ... 2. ... 3. ...)"></textarea>
                     <div class="essay-hint">💡 Petunjuk: Pikirkan anggota badan seperti mata, hidung, telinga, rambut, alis, dll.</div>
                     <div class="essay-notice">
-                         Jawaban essay ini akan dinilai oleh guru.
+                        📌 Jawaban essay ini akan dinilai oleh guru.
                     </div>
                 </div>
 
@@ -1068,7 +1068,7 @@
             bgMusic.play().then(() => {
                 isMusicPlaying = true;
                 document.getElementById('musicControl').classList.add('playing');
-                document.getElementById('musicControl').innerHTML = '🎵';
+                document.getElementById('musicControl').innerHTML = '';
                 console.log('Musik berhasil diputar');
             }).catch(error => {
                 console.error('Gagal memutar musik:', error);
@@ -1191,7 +1191,7 @@
 
             // Hitung nilai PG
             let pgCorrect = 0;
-            let detailHTML = '<h3 style="margin-bottom: 15px;">📋 Detail Jawaban Pilihan Ganda:</h3>';
+            let detailHTML = '<h3 style="margin-bottom: 15px;"> Detail Jawaban Pilihan Ganda:</h3>';
             
             for (let i = 1; i <= 10; i++) {
                 const isCorrect = answers[i] === correctAnswers[i];
@@ -1254,7 +1254,7 @@
             
             if (pgScore === 100) {
                 scoreEl.className = 'result-score excellent';
-                document.getElementById('resultMessage').textContent = ' Sempurna! Semua jawaban PG benar!';
+                document.getElementById('resultMessage').textContent = '🌟 Sempurna! Semua jawaban PG benar!';
             } else if (pgScore >= 80) {
                 scoreEl.className = 'result-score excellent';
                 document.getElementById('resultMessage').textContent = '🌟 Luar Biasa! Kamu hebat sekali!';
