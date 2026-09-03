@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 Belajar Bahasa Arab - Anggota Badan (أعضاء الجسم)</title>
+    <title> Belajar Bahasa Arab - Anggota Badan (أعضاء الجسم)</title>
     <style>
         * {
             margin: 0;
@@ -127,18 +127,7 @@
             to { transform: rotate(360deg); }
         }
 
-        /* ===== YOUTUBE PLAYER HIDDEN ===== */
-        .youtube-player-container {
-            position: fixed;
-            top: -9999px;
-            left: -9999px;
-            width: 1px;
-            height: 1px;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* ===== STYLING LAINNYA (SAMA SEPERTI SEBELUMNYA) ===== */
+        /* ===== STYLING LAINNYA ===== */
         .container {
             max-width: 900px;
             margin: 0 auto;
@@ -617,18 +606,19 @@
         <div class="music-note">🎵</div>
         <h1>Selamat Datang di<br>Belajar Bahasa Arab</h1>
         <div class="arabic-big">أَعْضَاءُ الْجِسْمِ</div>
-        <button class="start-btn">🎧 Klik untuk Mulai<br><small style="font-weight: normal; font-size: 0.7em;">(Musik akan otomatis diputar)</small></button>
+        <button class="start-btn"> Klik untuk Mulai<br><small style="font-weight: normal; font-size: 0.7em;">(Musik akan otomatis diputar)</small></button>
     </div>
 
     <!-- ===== TOMBOL KONTROL MUSIK ===== -->
     <button class="music-control" id="musicControl" onclick="toggleMusic()" title="Play/Pause Musik">
-        🎵
+        
     </button>
 
-    <!-- ===== YOUTUBE PLAYER (HIDDEN) ===== -->
-    <div class="youtube-player-container">
-        <div id="youtubePlayer"></div>
-    </div>
+    <!-- ===== AUDIO ELEMENT (FILE MP3 DARI GITHUB) ===== -->
+    <audio id="bgMusic" loop preload="auto" crossorigin="anonymous">
+        <source src="https://raw.githubusercontent.com/faudyadam77-tech/kun-anta/refs/heads/main/kunanta.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung audio element.
+    </audio>
 
     <!-- ===== KONTEN UTAMA ===== -->
     <div class="container">
@@ -742,7 +732,7 @@
                     ℹ️ Setiap soal bernilai <strong>10 poin</strong>. Total nilai PG = <strong>100</strong> jika benar semua.
                 </p>
 
-                <!-- Soal PG 1-10 (sama seperti sebelumnya) -->
+                <!-- Soal PG 1 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">1</span>
@@ -765,6 +755,7 @@
                     </div>
                 </div>
 
+                <!-- Soal PG 2 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">2</span>
@@ -786,6 +777,7 @@
                     </div>
                 </div>
 
+                <!-- Soal PG 3 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">3</span>
@@ -808,6 +800,7 @@
                     </div>
                 </div>
 
+                <!-- Soal PG 4 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">4</span>
@@ -830,6 +823,7 @@
                     </div>
                 </div>
 
+                <!-- Soal PG 5 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">5</span>
@@ -851,6 +845,7 @@
                     </div>
                 </div>
 
+                <!-- Soal PG 6 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">6</span>
@@ -872,6 +867,7 @@
                     </div>
                 </div>
 
+                <!-- Soal PG 7 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">7</span>
@@ -894,6 +890,7 @@
                     </div>
                 </div>
 
+                <!-- Soal PG 8 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">8</span>
@@ -916,6 +913,7 @@
                     </div>
                 </div>
 
+                <!-- Soal PG 9 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">9</span>
@@ -937,6 +935,7 @@
                     </div>
                 </div>
 
+                <!-- Soal PG 10 -->
                 <div class="question-card">
                     <div class="question-text">
                         <span class="question-number">10</span>
@@ -966,6 +965,7 @@
                     ℹ️ Jawaban essay akan dikirim ke guru untuk dinilai secara manual.
                 </p>
 
+                <!-- Essay 1 -->
                 <div class="question-card essay">
                     <div class="question-text">
                         <span class="question-number essay-num">11</span>
@@ -979,6 +979,7 @@
                     </div>
                 </div>
 
+                <!-- Essay 2 -->
                 <div class="question-card essay">
                     <div class="question-text">
                         <span class="question-number essay-num">12</span>
@@ -991,6 +992,7 @@
                     </div>
                 </div>
 
+                <!-- Essay 3 -->
                 <div class="question-card essay">
                     <div class="question-text">
                         <span class="question-number essay-num">13</span>
@@ -999,7 +1001,7 @@
                     <textarea class="essay-textarea" id="essay3" placeholder="Tulis jawabanmu di sini... (contoh: 1. ... 2. ... 3. ...)"></textarea>
                     <div class="essay-hint">💡 Petunjuk: Pikirkan anggota badan seperti mata, hidung, telinga, rambut, alis, dll.</div>
                     <div class="essay-notice">
-                        📌 Jawaban essay ini akan dinilai oleh guru.
+                         Jawaban essay ini akan dinilai oleh guru.
                     </div>
                 </div>
 
@@ -1046,56 +1048,13 @@
         </div>
     </div>
 
-    <!-- ===== YOUTUBE IFRAME API ===== -->
     <script>
-        // Load YouTube IFrame API
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        // ===== VARIABEL GLOBAL =====
+        let isMusicPlaying = false;
+        const bgMusic = document.getElementById('bgMusic');
 
-        var player;
-        var isMusicPlaying = false;
-
-        // Dipanggil otomatis oleh YouTube API ketika siap
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtubePlayer', {
-                height: '1',
-                width: '1',
-                videoId: 'qKVW_wJs91Q', // Video ID dari link YouTube
-                playerVars: {
-                    'autoplay': 0,
-                    'controls': 0,
-                    'loop': 1,
-                    'playlist': 'qKVW_wJs91Q', // Required for loop
-                    'showinfo': 0,
-                    'rel': 0,
-                    'modestbranding': 1
-                },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
-            });
-        }
-
-        function onPlayerReady(event) {
-            // Player siap, tapi belum diputar (menunggu user interaction)
-            console.log('YouTube player ready');
-        }
-
-        function onPlayerStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-                isMusicPlaying = true;
-                document.getElementById('musicControl').classList.add('playing');
-                document.getElementById('musicControl').innerHTML = '🎵';
-            } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
-                isMusicPlaying = false;
-                document.getElementById('musicControl').classList.remove('playing');
-                document.getElementById('musicControl').innerHTML = '🔇';
-            }
-        }
-
+        // ===== FUNGSI KONTROL MUSIK =====
+        
         // Mulai pengalaman (dipanggil saat klik overlay)
         function startExperience() {
             // Sembunyikan overlay
@@ -1105,24 +1064,34 @@
             document.getElementById('musicControl').classList.add('visible');
             
             // Mulai putar musik
-            if (player && player.playVideo) {
-                player.setVolume(50); // Volume 50%
-                player.playVideo();
-            }
+            bgMusic.volume = 0.5; // Volume 50%
+            bgMusic.play().then(() => {
+                isMusicPlaying = true;
+                document.getElementById('musicControl').classList.add('playing');
+                document.getElementById('musicControl').innerHTML = '🎵';
+                console.log('Musik berhasil diputar');
+            }).catch(error => {
+                console.error('Gagal memutar musik:', error);
+                alert('Maaf, musik tidak bisa diputar. Silakan cek koneksi internet Anda.');
+            });
         }
 
         // Toggle play/pause musik
         function toggleMusic() {
-            if (!player) return;
-            
             if (isMusicPlaying) {
-                player.pauseVideo();
+                bgMusic.pause();
+                isMusicPlaying = false;
+                document.getElementById('musicControl').classList.remove('playing');
+                document.getElementById('musicControl').innerHTML = '🔇';
             } else {
-                player.playVideo();
+                bgMusic.play();
+                isMusicPlaying = true;
+                document.getElementById('musicControl').classList.add('playing');
+                document.getElementById('musicControl').innerHTML = '🎵';
             }
         }
 
-        // ===== FUNGSI QUIZ (SAMA SEPERTI SEBELUMNYA) =====
+        // ===== FUNGSI QUIZ =====
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyxxI0jeaBQ_Aa5pZ8N7qFDoQBHv1DAlcHaVq61VeBEwoh_x3whmL5B8gaz6l_uQFvk/exec';
 
         const correctAnswers = {
@@ -1136,11 +1105,11 @@
 
         function speak(text) {
             // Pause musik sebentar saat TTS
-            if (player && isMusicPlaying) {
-                player.pauseVideo();
+            if (isMusicPlaying) {
+                bgMusic.pause();
                 setTimeout(() => {
-                    if (player && !isMusicPlaying) {
-                        player.playVideo();
+                    if (!isMusicPlaying) {
+                        bgMusic.play();
                     }
                 }, 2000);
             }
@@ -1186,22 +1155,41 @@
         }
 
         function submitQuiz() {
+            // Cek semua soal PG sudah dijawab
             for (let i = 1; i <= 10; i++) {
                 if (!answers[i]) {
-                    alert(`️ Soal nomor ${i} belum dijawab!`);
+                    alert(`⚠️ Soal nomor ${i} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
+                    const questionCard = document.querySelectorAll('.question-card:not(.essay)')[i - 1];
+                    if (questionCard) {
+                        questionCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        questionCard.style.borderLeft = '5px solid #e74c3c';
+                        setTimeout(() => {
+                            questionCard.style.borderLeft = '5px solid #667eea';
+                        }, 2000);
+                    }
                     return;
                 }
             }
 
+            // Cek semua essay sudah dijawab
             for (let i = 1; i <= 3; i++) {
                 const essayValue = document.getElementById(`essay${i}`).value.trim();
                 if (essayValue === '') {
-                    alert(`⚠️ Soal essay nomor ${i + 10} belum dijawab!`);
+                    alert(`⚠️ Soal essay nomor ${i + 10} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
+                    const essayCard = document.querySelectorAll('.question-card.essay')[i - 1];
+                    if (essayCard) {
+                        essayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        essayCard.style.borderLeft = '5px solid #e74c3c';
+                        setTimeout(() => {
+                            essayCard.style.borderLeft = '5px solid #f39c12';
+                        }, 2000);
+                    }
                     return;
                 }
                 essayAnswers_submitted[i] = essayValue;
             }
 
+            // Hitung nilai PG
             let pgCorrect = 0;
             let detailHTML = '<h3 style="margin-bottom: 15px;">📋 Detail Jawaban Pilihan Ganda:</h3>';
             
@@ -1219,9 +1207,11 @@
 
             const pgScore = pgCorrect * 10;
 
+            // Tampilkan loading
             document.getElementById('quizSection').style.display = 'none';
             document.getElementById('loadingSection').classList.add('active');
 
+            // Kirim ke Google Spreadsheet
             const data = {
                 nama: studentName,
                 jawabanPG: Object.values(answers),
@@ -1234,12 +1224,14 @@
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify(data)
             }).then(() => {
                 showResult(pgCorrect, pgScore, detailHTML);
             }).catch(error => {
-                console.error('Error:', error);
+                console.error('Error sending data:', error);
                 showResult(pgCorrect, pgScore, detailHTML);
             });
 
@@ -1262,16 +1254,16 @@
             
             if (pgScore === 100) {
                 scoreEl.className = 'result-score excellent';
-                document.getElementById('resultMessage').textContent = '🌟 Sempurna!';
+                document.getElementById('resultMessage').textContent = ' Sempurna! Semua jawaban PG benar!';
             } else if (pgScore >= 80) {
                 scoreEl.className = 'result-score excellent';
-                document.getElementById('resultMessage').textContent = '🌟 Luar Biasa!';
+                document.getElementById('resultMessage').textContent = '🌟 Luar Biasa! Kamu hebat sekali!';
             } else if (pgScore >= 60) {
                 scoreEl.className = 'result-score good';
-                document.getElementById('resultMessage').textContent = 'Bagus!';
+                document.getElementById('resultMessage').textContent = '👍 Bagus! Terus belajar ya!';
             } else {
                 scoreEl.className = 'result-score poor';
-                document.getElementById('resultMessage').textContent = '💪 Jangan menyerah!';
+                document.getElementById('resultMessage').textContent = '💪 Jangan menyerah! Ayo belajar lagi!';
             }
             
             document.getElementById('resultDetail').innerHTML = detailHTML;
@@ -1281,8 +1273,11 @@
             }, 100);
         }
 
+        // Enter key untuk mulai quiz
         document.getElementById('studentName').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') startQuiz();
+            if (e.key === 'Enter') {
+                startQuiz();
+            }
         });
     </script>
 </body>
