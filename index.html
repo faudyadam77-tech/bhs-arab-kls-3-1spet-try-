@@ -91,42 +91,6 @@
             to { transform: translateY(-20px); }
         }
 
-        /* ===== MUSIC CONTROL BUTTON ===== */
-        .music-control {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            font-size: 1.5em;
-            cursor: pointer;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            z-index: 1000;
-            transition: transform 0.3s;
-            display: none;
-        }
-
-        .music-control.visible {
-            display: block;
-        }
-
-        .music-control:hover {
-            transform: scale(1.1);
-        }
-
-        .music-control.playing {
-            animation: rotate 3s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
         /* ===== STYLING LAINNYA ===== */
         .container {
             max-width: 900px;
@@ -609,11 +573,6 @@
         <button class="start-btn">🎧 Ketuk untuk Mulai</button>
     </div>
 
-    <!-- ===== TOMBOL KONTROL MUSIK ===== -->
-    <button class="music-control" id="musicControl" onclick="toggleMusic()" title="Play/Pause Musik">
-        🎵
-    </button>
-
     <!-- ===== AUDIO ELEMENT (FILE MP3 DARI GITHUB) ===== -->
     <audio id="bgMusic" loop preload="auto" crossorigin="anonymous">
         <source src="https://raw.githubusercontent.com/faudyadam77-tech/sanakhudu/refs/heads/main/sanakhudu.mp3" type="audio/mpeg">
@@ -715,7 +674,7 @@
                 <label for="studentName">✏️ Masukkan Nama Lengkapmu:</label>
                 <input type="text" id="studentName" placeholder="Ketik namamu di sini..." autocomplete="off">
                 <br>
-                <button class="btn-start" onclick="startQuiz()"> Mulai Mengerjakan Soal</button>
+                <button class="btn-start" onclick="startQuiz()">🚀 Mulai Mengerjakan Soal</button>
                 <div class="error-message" id="namaError">
                     ⚠️ Nama harus diisi sebelum mengerjakan soal!
                 </div>
@@ -975,7 +934,7 @@
                     <textarea class="essay-textarea" id="essay1" placeholder="Tulis jawabanmu di sini..."></textarea>
                     <div class="essay-hint">💡 Petunjuk: Ini adalah bagian tubuh di antara paha dan betis.</div>
                     <div class="essay-notice">
-                         Jawaban essay ini akan dinilai oleh guru.
+                        📌 Jawaban essay ini akan dinilai oleh guru.
                     </div>
                 </div>
 
@@ -1001,7 +960,7 @@
                     <textarea class="essay-textarea" id="essay3" placeholder="Tulis jawabanmu di sini... (contoh: 1. ... 2. ... 3. ...)"></textarea>
                     <div class="essay-hint">💡 Petunjuk: Pikirkan anggota badan seperti mata, hidung, telinga, rambut, alis, dll.</div>
                     <div class="essay-notice">
-                        📌 Jawaban essay ini akan dinilai oleh guru.
+                         Jawaban essay ini akan dinilai oleh guru.
                     </div>
                 </div>
 
@@ -1060,34 +1019,24 @@
             // Sembunyikan overlay
             document.getElementById('startOverlay').classList.add('hidden');
             
-            // Tampilkan tombol kontrol musik
-            document.getElementById('musicControl').classList.add('visible');
-            
             // Mulai putar musik
             bgMusic.volume = 0.5; // Volume 50%
             bgMusic.play().then(() => {
                 isMusicPlaying = true;
-                document.getElementById('musicControl').classList.add('playing');
-                document.getElementById('musicControl').innerHTML = '';
                 console.log('Musik berhasil diputar');
             }).catch(error => {
                 console.error('Gagal memutar musik:', error);
-                alert('Maaf, musik tidak bisa diputar. Silakan cek koneksi internet Anda.');
             });
         }
 
-        // Toggle play/pause musik
-        function toggleMusic() {
+        // Fungsi untuk resume musik (dipanggil setelah TTS selesai)
+        function resumeMusic() {
             if (isMusicPlaying) {
-                bgMusic.pause();
-                isMusicPlaying = false;
-                document.getElementById('musicControl').classList.remove('playing');
-                document.getElementById('musicControl').innerHTML = '🔇';
-            } else {
-                bgMusic.play();
-                isMusicPlaying = true;
-                document.getElementById('musicControl').classList.add('playing');
-                document.getElementById('musicControl').innerHTML = '🎵';
+                bgMusic.play().then(() => {
+                    console.log('Musik dilanjutkan setelah TTS');
+                }).catch(error => {
+                    console.error('Gagal melanjutkan musik:', error);
+                });
             }
         }
 
@@ -1103,25 +1052,38 @@
         let answers = {};
         let essayAnswers_submitted = {};
 
+        // ===== FUNGSI TTS DENGAN AUTO-RESUME MUSIK =====
         function speak(text) {
-            // Pause musik sebentar saat TTS
+            if (!('speechSynthesis' in window)) {
+                alert('Browser tidak mendukung text-to-speech');
+                return;
+            }
+
+            // Batalkan TTS yang sedang berjalan (jika ada)
+            window.speechSynthesis.cancel();
+
+            // Pause musik saat TTS mulai
             if (isMusicPlaying) {
                 bgMusic.pause();
-                setTimeout(() => {
-                    if (!isMusicPlaying) {
-                        bgMusic.play();
-                    }
-                }, 2000);
             }
-            
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'ar-SA';
-                utterance.rate = 0.8;
-                speechSynthesis.speak(utterance);
-            } else {
-                alert('Browser tidak mendukung text-to-speech');
-            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'ar-SA';
+            utterance.rate = 0.8;
+
+            // Ketika TTS selesai, musik otomatis jalan kembali
+            utterance.onend = function() {
+                console.log('TTS selesai, melanjutkan musik...');
+                resumeMusic();
+            };
+
+            // Jika TTS error, tetap lanjutkan musik
+            utterance.onerror = function() {
+                console.log('TTS error, melanjutkan musik...');
+                resumeMusic();
+            };
+
+            window.speechSynthesis.speak(utterance);
         }
 
         function startQuiz() {
@@ -1158,7 +1120,7 @@
             // Cek semua soal PG sudah dijawab
             for (let i = 1; i <= 10; i++) {
                 if (!answers[i]) {
-                    alert(`⚠️ Soal nomor ${i} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
+                    alert(`️ Soal nomor ${i} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
                     const questionCard = document.querySelectorAll('.question-card:not(.essay)')[i - 1];
                     if (questionCard) {
                         questionCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1175,7 +1137,7 @@
             for (let i = 1; i <= 3; i++) {
                 const essayValue = document.getElementById(`essay${i}`).value.trim();
                 if (essayValue === '') {
-                    alert(`⚠️ Soal essay nomor ${i + 10} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
+                    alert(`️ Soal essay nomor ${i + 10} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
                     const essayCard = document.querySelectorAll('.question-card.essay')[i - 1];
                     if (essayCard) {
                         essayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1191,7 +1153,7 @@
 
             // Hitung nilai PG
             let pgCorrect = 0;
-            let detailHTML = '<h3 style="margin-bottom: 15px;"> Detail Jawaban Pilihan Ganda:</h3>';
+            let detailHTML = '<h3 style="margin-bottom: 15px;">📋 Detail Jawaban Pilihan Ganda:</h3>';
             
             for (let i = 1; i <= 10; i++) {
                 const isCorrect = answers[i] === correctAnswers[i];
