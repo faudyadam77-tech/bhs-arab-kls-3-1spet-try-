@@ -152,18 +152,21 @@
             margin-top: 20px;
         }
 
+        /* ===== KARTU KOSAKATA DENGAN GAMBAR ===== */
         .vocab-card {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             border-radius: 15px;
-            padding: 20px;
+            overflow: hidden;
             text-align: center;
             color: white;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .vocab-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
 
         .vocab-card:nth-child(even) {
@@ -176,6 +179,43 @@
 
         .vocab-card:nth-child(4n) {
             background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        /* Container untuk gambar */
+        .vocab-image-container {
+            width: 100%;
+            height: 150px;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .vocab-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .vocab-card:hover .vocab-image {
+            transform: scale(1.1);
+        }
+
+        /* Emoji fallback jika gambar gagal load */
+        .vocab-emoji-fallback {
+            font-size: 4em;
+            display: none;
+        }
+
+        .vocab-emoji-fallback.show {
+            display: block;
+        }
+
+        .vocab-info {
+            padding: 15px;
         }
 
         .vocab-arabic {
@@ -561,6 +601,9 @@
             .start-overlay .arabic-big {
                 font-size: 2em;
             }
+            .vocab-image-container {
+                height: 120px;
+            }
         }
     </style>
 </head>
@@ -595,75 +638,117 @@
             </div>
             <p style="margin-bottom: 15px; color: #555;">🔊 Klik kartu untuk mendengar pengucapan!</p>
             <div class="vocabulary-grid">
+                
+                <!-- KOSAKATA KEPALA DENGAN GAMBAR -->
                 <div class="vocab-card" onclick="speak('رَأْسٌ')">
-                    <div class="vocab-arabic">رَأْسٌ</div>
-                    <div class="vocab-latin">ra'sun</div>
-                    <div class="vocab-indo">Kepala</div>
+                    <div class="vocab-image-container">
+                        <img 
+                            class="vocab-image" 
+                            src="https://cdn.jsdelivr.net/gh/faudyadam77-tech/Kumpulan-gambar@main/kepala.jpeg" 
+                            alt="Kepala"
+                            onload="this.style.display='block'; this.nextElementSibling.style.display='none';"
+                            onerror="this.style.display='none'; this.nextElementSibling.classList.add('show');"
+                        >
+                        <div class="vocab-emoji-fallback"></div>
+                    </div>
+                    <div class="vocab-info">
+                        <div class="vocab-arabic">رَأْسٌ</div>
+                        <div class="vocab-latin">ra'sun</div>
+                        <div class="vocab-indo">Kepala</div>
+                    </div>
                 </div>
+
+                <!-- KOSAKATA LAINNYA (TANPA GAMBAR) -->
                 <div class="vocab-card" onclick="speak('عَيْنٌ')">
-                    <div class="vocab-arabic">عَيْنٌ</div>
-                    <div class="vocab-latin">'ainun</div>
-                    <div class="vocab-indo">Mata</div>
+                    <div class="vocab-info">
+                        <div class="vocab-arabic">عَيْنٌ</div>
+                        <div class="vocab-latin">'ainun</div>
+                        <div class="vocab-indo">Mata</div>
+                    </div>
                 </div>
                 <div class="vocab-card" onclick="speak('أَنْفٌ')">
-                    <div class="vocab-arabic">أَنْفٌ</div>
-                    <div class="vocab-latin">'anfun</div>
-                    <div class="vocab-indo">Hidung</div>
+                    <div class="vocab-info">
+                        <div class="vocab-arabic">أَنْفٌ</div>
+                        <div class="vocab-latin">'anfun</div>
+                        <div class="vocab-indo">Hidung</div>
+                    </div>
                 </div>
                 <div class="vocab-card" onclick="speak('فَمٌ')">
-                    <div class="vocab-arabic">فَمٌ</div>
-                    <div class="vocab-latin">famun</div>
-                    <div class="vocab-indo">Mulut</div>
+                    <div class="vocab-info">
+                        <div class="vocab-arabic">فَمٌ</div>
+                        <div class="vocab-latin">famun</div>
+                        <div class="vocab-indo">Mulut</div>
+                    </div>
                 </div>
                 <div class="vocab-card" onclick="speak('أُذُنٌ')">
-                    <div class="vocab-arabic">أُذُنٌ</div>
-                    <div class="vocab-latin">'udzunun</div>
-                    <div class="vocab-indo">Telinga</div>
+                    <div class="vocab-info">
+                        <div class="vocab-arabic">أُذُنٌ</div>
+                        <div class="vocab-latin">'udzunun</div>
+                        <div class="vocab-indo">Telinga</div>
+                    </div>
                 </div>
                 <div class="vocab-card" onclick="speak('شَعْرٌ')">
-                    <div class="vocab-arabic">شَعْرٌ</div>
-                    <div class="vocab-latin">sy'arun</div>
-                    <div class="vocab-indo">Rambut</div>
+                    <div class="vocab-info">
+                        <div class="vocab-arabic">شَعْرٌ</div>
+                        <div class="vocab-latin">sy'arun</div>
+                        <div class="vocab-indo">Rambut</div>
+                    </div>
                 </div>
                 <div class="vocab-card" onclick="speak('يَدٌ')">
-                    <div class="vocab-arabic">يَدٌ</div>
-                    <div class="vocab-latin">yadun</div>
-                    <div class="vocab-indo">Tangan</div>
+                    <div class="vocab-info">
+                        <div class="vocab-arabic">يَدٌ</div>
+                        <div class="vocab-latin">yadun</div>
+                        <div class="vocab-indo">Tangan</div>
+                    </div>
                 </div>
                 <div class="vocab-card" onclick="speak('رِجْلٌ')">
-                    <div class="vocab-arabic">رِجْلٌ</div>
-                    <div class="vocab-latin">rijlun</div>
-                    <div class="vocab-indo">Kaki</div>
+                    <div class="vocab-info">
+                        <div class="vocab-arabic">رِجْلٌ</div>
+                        <div class="vocab-latin">rijlun</div>
+                        <div class="vocab-indo">Kaki</div>
+                    </div>
                 </div>
                 <div class="vocab-card" onclick="speak('بَطْنٌ')">
-                    <div class="vocab-arabic">بَطْنٌ</div>
-                    <div class="vocab-latin">batnun</div>
-                    <div class="vocab-indo">Perut</div>
+                    <div class="vocab-info">
+                        <div class="vocab-arabic">بَطْنٌ</div>
+                        <div class="vocab-latin">batnun</div>
+                        <div class="vocab-indo">Perut</div>
+                    </div>
                 </div>
                 <div class="vocab-card" onclick="speak('صَدْرٌ')">
-                    <div class="vocab-arabic">صَدْرٌ</div>
-                    <div class="vocab-latin">shadrun</div>
-                    <div class="vocab-indo">Dada</div>
+                    <div class="vocab-info">
+                        <div class="vocab-arabic">صَدْرٌ</div>
+                        <div class="vocab-latin">shadrun</div>
+                        <div class="vocab-indo">Dada</div>
+                    </div>
                 </div>
                 <div class="vocab-card" onclick="speak('إِصْبَعٌ')">
-                    <div class="vocab-arabic">إِصْبَعٌ</div>
-                    <div class="vocab-latin">ishba'un</div>
-                    <div class="vocab-indo">Jari</div>
+                    <div class="vocab-info">
+                        <div class="vocab-arabic">إِصْبَعٌ</div>
+                        <div class="vocab-latin">ishba'un</div>
+                        <div class="vocab-indo">Jari</div>
+                    </div>
                 </div>
                 <div class="vocab-card" onclick="speak('وَجْهٌ')">
-                    <div class="vocab-arabic">وَجْهٌ</div>
-                    <div class="vocab-latin">wajhun</div>
-                    <div class="vocab-indo">Wajah</div>
+                    <div class="vocab-info">
+                        <div class="vocab-arabic">وَجْهٌ</div>
+                        <div class="vocab-latin">wajhun</div>
+                        <div class="vocab-indo">Wajah</div>
+                    </div>
                 </div>
                 <div class="vocab-card" onclick="speak('رُكْبَةٌ')">
-                    <div class="vocab-arabic">رُكْبَةٌ</div>
-                    <div class="vocab-latin">rukbatun</div>
-                    <div class="vocab-indo">Lutut</div>
+                    <div class="vocab-info">
+                        <div class="vocab-arabic">رُكْبَةٌ</div>
+                        <div class="vocab-latin">rukbatun</div>
+                        <div class="vocab-indo">Lutut</div>
+                    </div>
                 </div>
                 <div class="vocab-card" onclick="speak('حَاجِبٌ')">
-                    <div class="vocab-arabic">حَاجِبٌ</div>
-                    <div class="vocab-latin">hajibun</div>
-                    <div class="vocab-indo">Alis</div>
+                    <div class="vocab-info">
+                        <div class="vocab-arabic">حَاجِبٌ</div>
+                        <div class="vocab-latin">hajibun</div>
+                        <div class="vocab-indo">Alis</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -947,7 +1032,7 @@
                     <textarea class="essay-textarea" id="essay2" placeholder="Tulis jawabanmu di sini..."></textarea>
                     <div class="essay-hint">💡 Petunjuk: Diawali dengan huruf hamzah (أ) dan berakhiran tanwin dhammah (ٌ).</div>
                     <div class="essay-notice">
-                        📌 Jawaban essay ini akan dinilai oleh guru.
+                         Jawaban essay ini akan dinilai oleh guru.
                     </div>
                 </div>
 
@@ -960,7 +1045,7 @@
                     <textarea class="essay-textarea" id="essay3" placeholder="Tulis jawabanmu di sini... (contoh: 1. ... 2. ... 3. ...)"></textarea>
                     <div class="essay-hint">💡 Petunjuk: Pikirkan anggota badan seperti mata, hidung, telinga, rambut, alis, dll.</div>
                     <div class="essay-notice">
-                         Jawaban essay ini akan dinilai oleh guru.
+                        📌 Jawaban essay ini akan dinilai oleh guru.
                     </div>
                 </div>
 
@@ -978,7 +1063,7 @@
 
         <!-- HASIL -->
         <div class="result-section" id="resultSection">
-            <h2 style="color: #2c3e50; font-size: 2em;">🎉 Hasil Ujian</h2>
+            <h2 style="color: #2c3e50; font-size: 2em;"> Hasil Ujian</h2>
             <p style="font-size: 1.2em; color: #555; margin-top: 10px;" id="resultName"></p>
             
             <div class="score-breakdown">
@@ -988,7 +1073,7 @@
                 </div>
                 <div class="score-item">
                     <div class="label">Essay</div>
-                    <div class="value" style="font-size: 1.1em;"> Menunggu Penilaian Guru</div>
+                    <div class="value" style="font-size: 1.1em;">📝 Menunggu Penilaian Guru</div>
                 </div>
             </div>
 
@@ -1013,14 +1098,9 @@
         const bgMusic = document.getElementById('bgMusic');
 
         // ===== FUNGSI KONTROL MUSIK =====
-        
-        // Mulai pengalaman (dipanggil saat klik overlay)
         function startExperience() {
-            // Sembunyikan overlay
             document.getElementById('startOverlay').classList.add('hidden');
-            
-            // Mulai putar musik
-            bgMusic.volume = 0.5; // Volume 50%
+            bgMusic.volume = 0.5;
             bgMusic.play().then(() => {
                 isMusicPlaying = true;
                 console.log('Musik berhasil diputar');
@@ -1029,7 +1109,6 @@
             });
         }
 
-        // Fungsi untuk resume musik (dipanggil setelah TTS selesai)
         function resumeMusic() {
             if (isMusicPlaying) {
                 bgMusic.play().then(() => {
@@ -1052,17 +1131,14 @@
         let answers = {};
         let essayAnswers_submitted = {};
 
-        // ===== FUNGSI TTS DENGAN AUTO-RESUME MUSIK =====
         function speak(text) {
             if (!('speechSynthesis' in window)) {
                 alert('Browser tidak mendukung text-to-speech');
                 return;
             }
 
-            // Batalkan TTS yang sedang berjalan (jika ada)
             window.speechSynthesis.cancel();
 
-            // Pause musik saat TTS mulai
             if (isMusicPlaying) {
                 bgMusic.pause();
             }
@@ -1071,13 +1147,11 @@
             utterance.lang = 'ar-SA';
             utterance.rate = 0.8;
 
-            // Ketika TTS selesai, musik otomatis jalan kembali
             utterance.onend = function() {
                 console.log('TTS selesai, melanjutkan musik...');
                 resumeMusic();
             };
 
-            // Jika TTS error, tetap lanjutkan musik
             utterance.onerror = function() {
                 console.log('TTS error, melanjutkan musik...');
                 resumeMusic();
@@ -1117,10 +1191,9 @@
         }
 
         function submitQuiz() {
-            // Cek semua soal PG sudah dijawab
             for (let i = 1; i <= 10; i++) {
                 if (!answers[i]) {
-                    alert(`️ Soal nomor ${i} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
+                    alert(`⚠️ Soal nomor ${i} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
                     const questionCard = document.querySelectorAll('.question-card:not(.essay)')[i - 1];
                     if (questionCard) {
                         questionCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1133,11 +1206,10 @@
                 }
             }
 
-            // Cek semua essay sudah dijawab
             for (let i = 1; i <= 3; i++) {
                 const essayValue = document.getElementById(`essay${i}`).value.trim();
                 if (essayValue === '') {
-                    alert(`️ Soal essay nomor ${i + 10} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
+                    alert(`⚠️ Soal essay nomor ${i + 10} belum dijawab! Silakan jawab semua soal terlebih dahulu.`);
                     const essayCard = document.querySelectorAll('.question-card.essay')[i - 1];
                     if (essayCard) {
                         essayCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1151,7 +1223,6 @@
                 essayAnswers_submitted[i] = essayValue;
             }
 
-            // Hitung nilai PG
             let pgCorrect = 0;
             let detailHTML = '<h3 style="margin-bottom: 15px;">📋 Detail Jawaban Pilihan Ganda:</h3>';
             
@@ -1169,11 +1240,9 @@
 
             const pgScore = pgCorrect * 10;
 
-            // Tampilkan loading
             document.getElementById('quizSection').style.display = 'none';
             document.getElementById('loadingSection').classList.add('active');
 
-            // Kirim ke Google Spreadsheet
             const data = {
                 nama: studentName,
                 jawabanPG: Object.values(answers),
@@ -1216,13 +1285,13 @@
             
             if (pgScore === 100) {
                 scoreEl.className = 'result-score excellent';
-                document.getElementById('resultMessage').textContent = '🌟 Sempurna! Semua jawaban PG benar!';
+                document.getElementById('resultMessage').textContent = ' Sempurna! Semua jawaban PG benar!';
             } else if (pgScore >= 80) {
                 scoreEl.className = 'result-score excellent';
-                document.getElementById('resultMessage').textContent = '🌟 Luar Biasa! Kamu hebat sekali!';
+                document.getElementById('resultMessage').textContent = ' Luar Biasa! Kamu hebat sekali!';
             } else if (pgScore >= 60) {
                 scoreEl.className = 'result-score good';
-                document.getElementById('resultMessage').textContent = '👍 Bagus! Terus belajar ya!';
+                document.getElementById('resultMessage').textContent = ' Bagus! Terus belajar ya!';
             } else {
                 scoreEl.className = 'result-score poor';
                 document.getElementById('resultMessage').textContent = '💪 Jangan menyerah! Ayo belajar lagi!';
@@ -1235,7 +1304,6 @@
             }, 100);
         }
 
-        // Enter key untuk mulai quiz
         document.getElementById('studentName').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 startQuiz();
